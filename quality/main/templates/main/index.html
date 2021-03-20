@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}CDEK IT | Оцените нашу работу{% endblock %}
+
+
+
+{% block content %} 
+   
+
+    <div class="container" >
+    
+      <h1 class="heading-primary u-center-text my-normal">Оцените нашу работу</h1>
+
+      <form action="{% url 'index' %}" class="rating-form" method="POST" id='rating-form-js'>
+        {% csrf_token %}
+
+        <div class="rating-form__stars my-normal">
+
+          <fieldset class="rating">
+              <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+              <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+              <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+              <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+              <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Bad">1 star</label>
+          </fieldset>
+
+        </div>
+        <div class="rating-form__div my-extrabig">
+
+          <textarea  class="rating-form__textarea" placeholder="{% if need_comment %}Пожалуйста, добавьте комментарий{% else %}Ваш отзыв{% endif %}" id="comment" name='comment' rows="4" maxlength = "500"></textarea> 
+          <label for="name" class="rating-form__label">{% if need_comment %}Пожалуйста, добавьте комментарий{% else %}Ваш отзыв{% endif %}</label>
+          
+        </div>
+        {% if ticket_id %}
+        <div>
+          <input type="hidden" name='ticket_id' value="{{ticket_id}}">
+        </div>
+        {% endif %}
+        {% if user_id %}
+        <div>
+          <input type="hidden" name='user_id' value="{{user_id}}">
+        </div>
+        {% endif %}
+         {% if time %}
+        <div>
+          <input type="hidden" name='time' value="{{time}}">
+        </div>
+        {% endif %}
+        
+        <div class="rating-form__btn my-extrabig">
+               
+                <button class="btn btn_primary-color btn_animated g-recaptcha" id='btn-js' type='submit'
+                        data-sitekey="{% if site_key %}{{site_key}}{% endif %}" data-callback='onSubmit' > 
+                    Отправить →
+                </button>
+
+                
+            </div>
+      </form>
+    </div>
+
+{% endblock %}

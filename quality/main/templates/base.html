@@ -1,0 +1,103 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Cache-Control" content="private">
+    <link rel="shortcut icon" href="{% static 'main/favicon/favicon.ico' %} " />
+    <link rel="stylesheet" href="{% static 'main/css/style.bundle-2.css' %}" />
+    
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <!-- /FontAwesome -->
+
+    <!-- /Google fonts -->
+    <!-- jQuery 1.8 or later, 33 KB -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- /jQuery 1.8 or later, 33 KB -->
+
+    
+    <title>{% block title %}CDEK IT{% endblock %}</title>
+    <!-- Добавление дополнительного статического CSS файла -->
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header id="header" class="header">
+      <div class="container">
+        <!-- у нас два nav: первый nav-first(наверху) и просто nav(внизу) -->
+        <nav class="nav-first">
+          <!-- Каждый нав делится на две части левая и правая -->
+          <div class="nav-first__left">
+            <a class="logo" href="https://nps.cdek.ru/{% if ticket_id %}{{ticket_id}}/{{user_id}}/{{time}}{% endif %}"> <img src="{% static 'main/img/logos/offical.svg' %}" alt="Logo" class="logo__img" /> </a>
+          </div>
+
+          <div class="nav-first__right"></div>
+        </nav>
+      </div>
+    </header>
+  
+  {% block content %} {% endblock %}
+  
+    <!-- footer -->
+
+    
+    
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="{% static 'main/js/bundle.js' %} "></script>
+    <script>
+        function onSubmit(token) {
+          console.log(token)
+         
+          
+            
+            let textarea = $('.rating-form__textarea');
+            
+            
+           
+              let length_of_text = textarea.val().length
+              console.log(length_of_text)
+              let rating = $("input:radio[name=rating]:checked").val();
+
+              if (rating == null) {
+                
+                textarea.attr("placeholder", "Пожалуйста, поставьте оценку");
+                // $('.rating-form__label').html("Пожалуйста, поставьте оценку");
+                textarea.css('border', '2px solid #EC432E'); 
+
+              } else if (rating < 3 && length_of_text < 3){
+
+                
+                textarea.attr("placeholder", "Пожалуйста, напишите комментарий не менее трех символов");
+                $('.rating-form__label').html("Пожалуйста, напишите комментарий не менее трех символов");
+                textarea.css('border', '2px solid #EC432E'); 
+
+              } else{
+                document.getElementById("rating-form-js").submit();
+              }
+
+            
+
+            textarea.on('input', function(){
+              textarea.css('border', '1px solid #55C57A');
+              textarea.css('border', '1px solid black');
+              textarea.css('border-bottom', '3px solid #55C57A ');
+            });  
+          
+
+          
+        };
+    </script>
+
+  </body>
+</html>
